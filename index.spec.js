@@ -18,9 +18,9 @@ describe('OrderedJobKata', function(){
         expect(jOrderer.orderJobs("a =>")).to.eql("a");
     });
 
-    it('it should contain a,b,c for "a =>\nb =>\nc =>\n" string', function() {
+    it('it should contain a,b,c for "a =>\nb =>\nc =>" string', function() {
        
-        let jobs = jOrderer.orderJobs("a =>\nb =>\nc =>\n");
+        let jobs = jOrderer.orderJobs("a =>\nb =>\nc =>");
         
         expect(jobs).to.have.lengthOf(3);
         expect(jobs).to.contain('a');
@@ -29,9 +29,9 @@ describe('OrderedJobKata', function(){
 
     });
 
-    it('it should contain a,cb for "a =>\nb =>c\nc =>\n" string', function() {
+    it('it should contain a,cb for "a =>\nb =>c\nc =>" string', function() {
        
-        let jobs = jOrderer.orderJobs("a =>\nb =>c\nc =>\n");
+        let jobs = jOrderer.orderJobs("a =>\nb =>c\nc =>");
         
         expect(jobs).to.have.lengthOf(3);
         expect(jobs).to.contain('a');
@@ -52,6 +52,21 @@ describe('OrderedJobKata', function(){
         expect(jobs.indexOf('b') < jobs.indexOf('e')).to.eql(true);
             
     });
+
+    it('should return an Error: "Jobs can’t depend on themselves" for a =>\nb =>\nc =>c' ,function(){
+       
+        expect(function(){
+            jOrderer.orderJobs("a =>\nb =>\nc =>c");
+        }).to.throw(Error ,"Jobs can’t depend on themselves" );
+    });
+
+    it('should return an Error: "Jobs can\'t have circular dependencies" for a =>\nb =>c\nc =>f\nd =>a\ne =>\nf =>b', function(){
+        expect(function(){
+            jOrderer.orderJobs("a =>\nb =>c\nc =>f\nd =>a\ne =>\nf =>b");
+        }).to.throw(Error ,"Jobs can't have circular dependencies" );
+    });
+
+
 
     
 
