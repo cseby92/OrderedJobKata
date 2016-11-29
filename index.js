@@ -1,6 +1,8 @@
 'use strict'
 
 module.exports = class JobOrderer{
+
+     //this.SEPARATOR = "\n";
     
     orderJobs(inStr){
         if(inStr === "")

@@ -50,7 +50,7 @@ describe('OrderedJobKata', function(){
         expect(jobs.indexOf('f') < jobs.indexOf('c')).to.eql(true);
         expect(jobs.indexOf('a') < jobs.indexOf('d')).to.eql(true);
         expect(jobs.indexOf('b') < jobs.indexOf('e')).to.eql(true);
-            
+        //to below            
     });
 
     it('should return an Error: "Jobs can’t depend on themselves" for a =>\nb =>\nc =>c' ,function(){
